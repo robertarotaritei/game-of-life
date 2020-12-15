@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Game of Life",
+    "short_name": "Game of Life",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
