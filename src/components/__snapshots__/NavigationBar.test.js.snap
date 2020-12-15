@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavigationBar renders correctly 1`] = `
+<header
+  className="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary navbar mui-fixed MuiPaper-elevation4"
+  style={
+    Object {
+      "background": "#063A4C",
+    }
+  }
+>
+  <div
+    className="MuiToolbar-root MuiToolbar-dense MuiToolbar-gutters"
+    style={
+      Object {
+        "maxHeight": "2rem",
+      }
+    }
+  >
+    <div
+      className="MuiContainer-root MuiContainer-disableGutters MuiContainer-maxWidthLg"
+    >
+      <p
+        style={
+          Object {
+            "color": "#9BE8FF",
+            "marginLeft": "6em",
+          }
+        }
+      >
+        Welcome 
+        
+      </p>
+    </div>
+    <div
+      className="MuiContainer-root MuiContainer-disableGutters MuiContainer-maxWidthLg"
+    >
+      <div
+        style={
+          Object {
+            "float": "right",
+          }
+        }
+      >
+        <button
+          className="btnNav"
+          style={
+            Object {
+              "backgroundColor": null,
+            }
+          }
+        >
+          Dashboard
+          <span
+            className="btnNav__glitch"
+          />
+        </button>
+        <button
+          className="btnNav"
+          style={
+            Object {
+              "backgroundColor": null,
+            }
+          }
+        >
+          Game History
+          <span
+            className="btnNav__glitch"
+          />
+        </button>
+        <button
+          className="btnNav"
+          style={
+            Object {
+              "backgroundColor": null,
+            }
+          }
+        >
+          About
+          <span
+            className="btnNav__glitch"
+          />
+        </button>
+        <button
+          className="btnNav"
+          data-testid="logIn"
+          onClick={[Function]}
+          style={
+            Object {
+              "marginLeft": "1.5em",
+              "marginRight": "6em",
+            }
+          }
+        >
+          Log in
+          <span
+            className="btnNav__glitch"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+`;

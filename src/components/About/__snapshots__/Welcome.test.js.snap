@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome renders correctly 1`] = `
+<div>
+  <p
+    className="textAnimationBig"
+    style={
+      Object {
+        "fontSize": "3rem",
+        "textAlign": "center",
+      }
+    }
+  >
+    Welcome to the 
+    <span
+      style={
+        Object {
+          "color": "#17c5fa",
+        }
+      }
+    >
+       Game 
+      <span
+        style={
+          Object {
+            "color": "#9be8ff",
+          }
+        }
+      >
+        of
+      </span>
+       Life
+    </span>
+    .
+  </p>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "marginTop": "40px",
+      }
+    }
+  >
+    <img
+      alt="GameOfLife"
+      src="/gameoflife.gif"
+      style={
+        Object {
+          "border": "solid",
+          "borderColor": "#17c5fa",
+          "borderWidth": "thick",
+        }
+      }
+    />
+    <p
+      className="textAnimationBig"
+      style={
+        Object {
+          "marginLeft": "20px",
+        }
+      }
+    >
+         The Game of Life is a cellular automaton devised by the British mathematician John Horton Conway in 1970.
+      <br />
+      It is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. 
+      <br />
+         One interacts with the Game of Life by creating an initial configuration and observing how it evolves. 
+      <br />
+         The game has three rules: 
+      <br />
+           1. Any live cell with two or three live neighbours survives. 
+      <br />
+           2. Any dead cell with three live neighbours becomes a live cell.
+      <br />
+           3. All other live cells die in the next generation. 
+      <br />
+    </p>
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "center",
+          "marginTop": "40px",
+        }
+      }
+    >
+      <p>
+        Click here to
+      </p>
+      <button
+        className="button"
+        onClick={[Function]}
+      >
+        log in
+      </button>
+      <p>
+        or
+      </p>
+      <button
+        className="button"
+        onClick={[Function]}
+      >
+        create an account
+      </button>
+    </div>
+  </div>
+</div>
+`;

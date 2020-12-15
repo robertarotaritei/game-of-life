@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegistrationForm renders correctly 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="registrationFormPolly"
+  >
+    <div
+      className="loginForm"
+    >
+      <div
+        style={
+          Object {
+            "color": "#17c5fa",
+            "marginTop": "25px",
+            "textAlign": "center",
+          }
+        }
+      >
+        <p>
+          Register
+        </p>
+      </div>
+      <div
+        className="inputPolly"
+        style={
+          Object {
+            "marginTop": "30px",
+          }
+        }
+      >
+        <input
+          onChange={[Function]}
+          placeholder="Username"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        className="inputPolly"
+        style={
+          Object {
+            "marginTop": "30px",
+          }
+        }
+      >
+        <input
+          onChange={[Function]}
+          placeholder="Password"
+          type="password"
+          value=""
+        />
+      </div>
+      <div
+        className="inputPolly"
+        style={
+          Object {
+            "marginTop": "30px",
+          }
+        }
+      >
+        <input
+          onChange={[Function]}
+          placeholder="Repeat Password"
+          type="password"
+          value=""
+        />
+      </div>
+      <div
+        style={
+          Object {
+            "textAlign": "center",
+          }
+        }
+      >
+        <div
+          className="submitButton"
+          style={
+            Object {
+              "marginTop": "10px",
+            }
+          }
+        >
+          <button
+            className="btn"
+            onClick={[Function]}
+          >
+            <span
+              className="btn__content"
+            >
+              REGISTER
+            </span>
+            <span
+              className="btn__glitch"
+            />
+          </button>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "marginBottom": "30px",
+            "marginTop": "30px",
+          }
+        }
+      >
+        <p
+          className="textAnimationBig"
+        >
+          Already have an account?
+        </p>
+        <button
+          className="button"
+          onClick={[Function]}
+        >
+          Log in
+        </button>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "marginBottom": "10px",
+          }
+        }
+      >
+        <p
+          className="textAnimationSmall"
+          style={
+            Object {
+              "fontSize": "1.2em",
+            }
+          }
+        >
+          Don't want to log in?
+        </p>
+        <button
+          className="button"
+          onClick={[Function]}
+          style={
+            Object {
+              "fontSize": "1.2em",
+            }
+          }
+        >
+          Go back to the game
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
