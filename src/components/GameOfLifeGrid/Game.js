@@ -1,7 +1,5 @@
 import React from 'react';
 import GameMenu from './GameMenu';
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import UserStore from '../../stores/UserStore';
 
 class Game extends React.Component {
 	constructor() {
@@ -12,59 +10,12 @@ class Game extends React.Component {
 		this.state = {
 			gridFull: sessionStorage.getItem('initialState') !== null ? JSON.parse(sessionStorage.getItem('initialState')) : Array(this.rows).fill().map(() => Array(this.cols).fill(false)),
 			click: false,
-			playState: 'play',
-			reactConnectionId: '',
-			runnerConnectionId: '',
-			saveText: '',
-			gameInformation: ''
+			playState: 'play'
 		}
-	}
-
-	componentDidMount = () => {
-		let mounted = true;
-
-		if (mounted) {
-			this.ConnectToHub();
-
-			if (this.props.game) {
-				this.setState({gridFull: JSON.parse(this.props.game.initialState)});
-			}
-		}
-
-		return () => mounted = false;
 	}
 
 	arrayClone(arr) {
 		return JSON.parse(JSON.stringify(arr));
-	}
-
-	ConnectToHub() {
-		const hubConnection = new HubConnectionBuilder()
-			.withUrl('https://activegamesapi.azurewebsites.net/Progress')
-			.configureLogging(LogLevel.Information)
-			.build();
-
-		this.setState({ hubConnection }, () => {
-			this.state.hubConnection
-				.start()
-				.then(() => console.log('Connection started!'))
-				.then(() => this.getConnectionId(hubConnection))
-				.catch(err => console.log('Error while establishing connection :('));
-
-			this.state.hubConnection.on('GameInfoSent', (info) => {
-				if (this.intervalId) {
-					this.setState({	gameInformation: info});
-				}
-			});
-		});
-	}
-
-	getConnectionId = (hubConnection) => {
-		hubConnection.invoke('getconnectionid').then(
-			(data) => {
-				this.setState({ reactConnectionId: data });
-			}
-		);
 	}
 
 	onMouseClicked = (event) => {
@@ -85,58 +36,33 @@ class Game extends React.Component {
 				}
 			}
 		}
-		this.setState({gridFull: gridCopy});
-		this.setState({saveText: '' });
+		this.setState({ gridFull: gridCopy });
+		this.setState({ saveText: '' });
 	}
 
 	playButton = () => {
 		clearInterval(this.intervalId);
 		this.intervalId = setInterval(this.play, this.speed);
-		let gameState = {
-			runnerConnectionId: this.state.runnerConnectionId,
-			reactConnectionId: this.state.reactConnectionId,
-			generation: this.state.gridFull
-		};
-		fetch('/games/activegames', {
-			method: 'POST',
-			mode: 'cors',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(gameState)
-		}).catch(console.log)
-		this.setState({ playState: "pause" });
-		if (!this.props.game) {
-			sessionStorage.setItem('initialState', JSON.stringify(this.state.gridFull));
-		}
 
-		this.setState({saveText: '' });
+		this.setState({ playState: "pause" });
+		sessionStorage.setItem('initialState', JSON.stringify(this.state.gridFull));
 	}
 
 	resumeButton = () => {
 		clearInterval(this.intervalId);
 		this.intervalId = setInterval(this.play, this.speed);
 		this.setState({ playState: "pause" });
-		this.setState({saveText: '' });
 	}
 
 	pauseButton = () => {
 		clearInterval(this.intervalId);
 		this.setState({ playState: "resume" });
-		this.setState({saveText: '' });
 	}
 
 	stopButton = () => {
 		clearInterval(this.intervalId);
-		if (this.props.game) {
-			this.setState({gridFull: JSON.parse(this.props.game.initialState)});
-		}
-		else {
-			this.setState({gridFull: sessionStorage.getItem('initialState') !== null ? JSON.parse(sessionStorage.getItem('initialState')) : Array(this.rows).fill().map(() => Array(this.cols).fill(false))});
-		}
+		this.setState({ gridFull: sessionStorage.getItem('initialState') !== null ? JSON.parse(sessionStorage.getItem('initialState')) : Array(this.rows).fill().map(() => Array(this.cols).fill(false)) });
 		this.setState({ playState: "play" });
-		this.setState({saveText: '' });
 	}
 
 	slow = () => { this.speed = 1200; this.resumeButton(); }
@@ -145,34 +71,9 @@ class Game extends React.Component {
 
 	clear = () => {
 		var grid = Array(this.rows).fill().map(() => Array(this.cols).fill(false));
-		this.setState({gridFull: grid});
+		this.setState({ gridFull: grid });
 		clearInterval(this.intervalId);
 		this.setState({ playState: "play" });
-		this.setState({saveText: '' });
-	}
-
-	save = () => {
-		if (this.props.loggedIn) {
-			let game = {
-				author: UserStore.username,
-				initialState: sessionStorage.getItem('initialState'),
-				token: sessionStorage.getItem('key')
-			};
-			fetch('/history/gamehistory', {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(game)
-			}).catch(console.log)
-
-			this.setState({saveText: 'Your game has been saved.' });
-		}
-		else{
-			this.setState({saveText: 'Log in to save games. ' });
-		}
 	}
 
 	play = () => {
@@ -181,8 +82,8 @@ class Game extends React.Component {
 
 	calculateNextGen() {
 		let nextGeneration = this.arrayClone(this.state.gridFull);
-		for(let i = 0; i < this.rows; i++){
-			for(let j = 0; j < this.cols; j++){
+		for (let i = 0; i < this.rows; i++) {
+			for (let j = 0; j < this.cols; j++) {
 				let neighbors = this.calculateNeighbors(i, j);
 				nextGeneration[i][j] = neighbors === 3 || nextGeneration[i][j];
 				nextGeneration[i][j] = neighbors >= 2 && neighbors <= 3 && nextGeneration[i][j];
@@ -216,7 +117,7 @@ class Game extends React.Component {
 
 	colorBasedOnNeighbors(i, k) {
 		let neighbors = this.calculateNeighbors(i, k);
-		
+
 		if (neighbors < 2) {
 			return '#009ECE';
 		}
@@ -237,17 +138,15 @@ class Game extends React.Component {
 							data-testid={`${i}-${k}`}
 							key={`${i}-${k}`}
 							onClick={() => {
-								if (!this.props.history) {
-									let g = this.state.gridFull;
-									g[i][k] = !g[i][k];
-									this.setState({gridFull: g})
-								}
+								let g = this.state.gridFull;
+								g[i][k] = !g[i][k];
+								this.setState({ gridFull: g })
 							}}
 							onMouseEnter={() => {
 								if (this.state.click === true) {
 									let g = this.state.gridFull;
 									g[i][k] = !g[i][k];
-									this.setState({gridFull: g})
+									this.setState({ gridFull: g })
 								}
 							}}
 							style={{
@@ -263,48 +162,20 @@ class Game extends React.Component {
 	render() {
 		return (
 			<div style={{ marginTop: '30px' }}>
-				{this.props.history ? (
-					<div>
-						{this.props.game ? (
-							<div>
-								<p>{this.props.game.author}'s Game</p>
-								<GameMenu
-									playState={this.state.playState}
-									playButton={this.playButton}
-									pauseButton={this.pauseButton}
-									stop={this.stopButton}
-									slow={this.slow}
-									fast={this.fast}
-									history={this.props.history}
-									gameInformation={this.state.gameInformation}
-								/>
-								{this.mapGrid()}
-							</div>
-						) : null}
-					</div>
-				) : (
-						<div>
-							<div onMouseDown={this.onMouseClicked} onMouseUp={this.onMouseClicked}>
-								<GameMenu
-									playState={this.state.playState}
-									playButton={this.playButton}
-									resumeButton={this.resumeButton}
-									pauseButton={this.pauseButton}
-									stop={this.stopButton}
-									slow={this.slow}
-									fast={this.fast}
-									clear={this.clear}
-									seed={this.seed}
-									save={this.save}
-									history={this.props.history}
-									loggedIn={this.props.loggedIn}
-									saveText={this.state.saveText}
-									gameInformation={this.state.gameInformation}
-								/>
-								{this.mapGrid()}
-							</div>
-						</div>
-					)}
+				<div onMouseDown={this.onMouseClicked} onMouseUp={this.onMouseClicked}>
+					<GameMenu
+						playState={this.state.playState}
+						playButton={this.playButton}
+						resumeButton={this.resumeButton}
+						pauseButton={this.pauseButton}
+						stop={this.stopButton}
+						slow={this.slow}
+						fast={this.fast}
+						clear={this.clear}
+						seed={this.seed}
+					/>
+					{this.mapGrid()}
+				</div>
 			</div>
 		);
 	}
