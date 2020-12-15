@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "96de66652a07ae9e9dbe4d034b64efdf",
+    "revision": "4e8b4ffe9c84d64fe1ade57aee2fb34c",
     "url": "/game-of-life/index.html"
   },
   {
-    "revision": "48bef9cf417837d4d5b5",
+    "revision": "5366015eccbf4be143ea",
     "url": "/game-of-life/static/css/main.324c4ef1.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/game-of-life/static/js/2.ce607d4c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "48bef9cf417837d4d5b5",
-    "url": "/game-of-life/static/js/main.bb76f785.chunk.js"
+    "revision": "5366015eccbf4be143ea",
+    "url": "/game-of-life/static/js/main.3fc6ab1f.chunk.js"
   },
   {
     "revision": "a6893dc5f1659096e143",
